@@ -27,7 +27,7 @@ public class ElasticsearchClientService {
             bulkRequestBuilder.operations(a -> a.update(updateOperation));
             idIncrementer++;
         }
-
+        
         this.bulk(bulkRequestBuilder.build());
 
         return true;
@@ -37,12 +37,13 @@ public class ElasticsearchClientService {
         BulkResponse bulkResponse = null;
         try {
             log.info("Bulk request executing number - {}", bulkCounter++);
+            log.info("Bulk request - {}", bulkRequest);
             bulkResponse = GlobalES.getClient().bulk(bulkRequest);
         } catch (Exception e) {
         	log.error("async: Bulk had errors: {}. It has been executed {}", e.getMessage(), bulkRequest, e);
         } finally {
         	if (bulkResponse != null && !bulkResponse.errors()) {
-                log.trace("BulkResponse: \"errors\":{}, \"took\": {}, \"items size\":{}.", bulkResponse.errors(), bulkResponse.took(),
+                log.error("BulkResponse: \"errors\":{}, \"took\": {}, \"items size\":{}.", bulkResponse.errors(), bulkResponse.took(),
                 		bulkResponse.items().size());
             }
         }

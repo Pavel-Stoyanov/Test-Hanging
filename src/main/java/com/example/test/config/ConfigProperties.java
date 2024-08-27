@@ -4,45 +4,35 @@ public class ConfigProperties {
 	
 	private ConfigProperties() {
 	    throw new IllegalStateException("Config class");
-   }
+    }
 
-    private static String inputFolder = "";
-    private static String processedFolder = "";
-    private static String errorFolder = "";
+	private static String inputFolder = "";
 
     // Elasticsearch settings
     private static String esHost = "";
     private static int esPort = 0;
-    private static int esConnectionTimeout = 0;
-    private static int esSocketTimeout = 0;
+    private static int esConnectionTimeout = 60000;
+    private static int esSocketTimeout = 60000;
     private static String esProtocol = "";
     private static String esUser = "";
     private static String esPassword = "";
 
     // Proxy settings
-    private static boolean enableProxy = false;
-    private static String proxyHost = "";
-    private static int proxyPort = 0;
-    private static String proxyProtocol = "";
+    private static boolean enableProxy = true;
+    private static String proxyHost = "localhost";
+    private static int proxyPort = 3128;
+    private static String proxyProtocol = "http";
 
     private static String esProdapiCatalogIndex = "";
     private static String esProdapiArticleIndex = "";
     
-    private static int bulkSize = 0;
+    private static int bulkSize = 50;
     
-    private static String catalogJsonPath = "";
-    private static String articleJsonPath = "";
+    private static String catalogJsonPath = "$.STEP-ProductInformation.Classifications.Classification";
+    private static String articleJsonPath = "$.STEP-ProductInformation.Products.Product";
     
 	public static String getInputFolder() {
 		return inputFolder;
-	}
-	
-	public static String getProcessedFolder() {
-		return processedFolder;
-	}
-	
-	public static String getErrorFolder() {
-		return errorFolder;
 	}
 	
 	public static String getEsHost() {

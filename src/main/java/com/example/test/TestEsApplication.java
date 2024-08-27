@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import jakarta.json.JsonObject;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsfr.json.Collector;
@@ -112,7 +114,8 @@ public class TestEsApplication {
         } else if(catalogs instanceof List<?> list) {
         	// if we have multiple catalogs in the file
             for(Object rawCatalog : list) {
-                listOfRawCatalogs.add(mapper.convertValue(rawCatalog, ObjectNode.class));
+            	ObjectNode obj = mapper.convertValue(rawCatalog, ObjectNode.class);
+                listOfRawCatalogs.add(obj);
                 if(listOfRawCatalogs.size() == ConfigProperties.getBulkSize()) {
                     esService.upsert(ConfigProperties.getEsProdapiCatalogIndex(), listOfRawCatalogs);
                     listOfRawCatalogs = new ArrayList<>();
@@ -133,7 +136,8 @@ public class TestEsApplication {
         } else if(articles instanceof List<?> list) {
         	// if we have multiple articles in the file
             for(Object rawArticle : list) {
-                listOfRawArticles.add(mapper.convertValue(rawArticle, ObjectNode.class));
+            	ObjectNode obj = mapper.convertValue(rawArticle, ObjectNode.class);
+            	listOfRawArticles.add(obj);
                 if(listOfRawArticles.size() == ConfigProperties.getBulkSize()) {
                     esService.upsert(ConfigProperties.getEsProdapiArticleIndex(), listOfRawArticles);
                     listOfRawArticles = new ArrayList<>();

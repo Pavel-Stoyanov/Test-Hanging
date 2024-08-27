@@ -22,20 +22,20 @@ public class MonitorES implements Runnable {
         	
         	try {
                 // Ping the cluster
-                BooleanResponse pingResponse = GlobalES.getClient().ping();
-                log.info("Elasticsearch cluster is available: {}", pingResponse.value());
-
-                // Get cluster health
-                HealthResponse healthResponse = GlobalES.getClient().cluster().health();
-                log.info("Cluster health status: {}", healthResponse.status());
-
-                // Get nodes stats
-                NodesStatsResponse nodesStatsResponse = GlobalES.getClient().nodes().stats();
-                log.info("Nodes stats: {}", nodesStatsResponse);
-
-                // Get indices stats
-                IndicesStatsResponse indicesStatsResponse = GlobalES.getClient().indices().stats();
-                log.info("Indices stats: {}", indicesStatsResponse);
+//                BooleanResponse pingResponse = GlobalES.getClient().ping();
+//                log.info("Elasticsearch cluster is available: {}", pingResponse.value());
+//
+//                // Get cluster health
+//                HealthResponse healthResponse = GlobalES.getClient().cluster().health();
+//                log.info("Cluster health status: {}", healthResponse.status());
+//
+//                // Get nodes stats
+//                NodesStatsResponse nodesStatsResponse = GlobalES.getClient().nodes().stats();
+//                log.info("Nodes stats: {}", nodesStatsResponse);
+//
+//                // Get indices stats
+//                IndicesStatsResponse indicesStatsResponse = GlobalES.getClient().indices().stats();
+//                log.info("Indices stats: {}", indicesStatsResponse);
                 
                 log.info(GlobalES.getClient().tasks().list());
             } catch (Exception e) {
@@ -45,7 +45,7 @@ public class MonitorES implements Runnable {
         	try {
 				Thread.sleep(30000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				log.error("Thread sleep error ", e);
 			}
         }
         
